@@ -10,26 +10,31 @@ module.exports = {
   devtool: 'inline-source-map',
   output: {
     path: path.resolve(__dirname, 'build'),
-    // publicPath: '/assets/',
-    filename: 'bundle.js'
+    publicPath: 'http://localhost:8080/',
   },
   devServer: {
-    contentBase: path.join(__dirname, 'build'),
+    contentBase: path.join(__dirname, 'src'),
+    port: 8080,
+    headers: { 'Access-Control-Allow-Origin': 'http://localhost:8080' },
   },
+  watch: true,
   plugins: [
     new WorkboxPlugin.InjectManifest({
       swSrc: './src/sw.js',
     }),
     new HtmlWebpackPlugin({
-      template: './src/index.html'
+      title: 'Prod app'
     })
   ],
   module: {
     rules: [
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
-      },
+        use: [
+          'style-loader',
+          'css-loader'
+        ]
+      }
     ]
   }
 }

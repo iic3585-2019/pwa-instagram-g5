@@ -1,4 +1,6 @@
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/4.2.0/workbox-sw.js')
+importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.0/workbox-sw.js")
+workbox.precaching.precacheAndRoute(self.__precacheManifest || [])
+
 const { strategies } = workbox
 // Rutas de lo que se está cacheando
 const staticAssets = [

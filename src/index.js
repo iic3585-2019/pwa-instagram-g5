@@ -1,6 +1,6 @@
 import $ from "jquery"
 import './style.css'
-import './bulma.min.css'
+import '../node_modules/bulma/css/bulma.min.css'
 
 window.addEventListener('load', e => {
     if ('serviceWorker' in navigator) {
@@ -12,6 +12,8 @@ window.addEventListener('load', e => {
         }
     }
 })
+
+console.log("Esto es un print de la cosa!")
 
 if (module.hot) {
     module.hot.accept()
