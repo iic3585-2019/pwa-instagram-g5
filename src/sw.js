@@ -16,12 +16,12 @@ self.addEventListener('fetch', event => {
     const req = event.request
     const url = new URL(req.url)
 
-    console.log("MOSTRANDO COSAS S:")
+    console.log("[SW] Mostrando cosas del fetch")
     console.log(req)
     console.log(url)
 
-    const cacheFirst = new strategies.CacheFirst();
-    const networkFirst = new workbox.strategies.NetworkFirst()
+    // const cacheFirst = new strategies.CacheFirst();
+    // const networkFirst = new workbox.strategies.NetworkFirst()
 
     /*
     if (url.origin === location.origin) {
@@ -63,3 +63,28 @@ workbox.routing.registerRoute(
     new RegExp(''),
     new workbox.strategies.NetworkFirst()
 );*/
+
+workbox.routing.registerRoute(
+    // Cache image files.
+    new RegExp("http:\/\/192\.168\.0\.30:3000.*"),
+    // Use the cache if it's available.
+    new workbox.strategies.NetworkFirst({
+        // Use a custom cache name.
+        cacheName: 'api-request-cache',
+        plugins: [
+            new workbox.expiration.Plugin({
+                // Cache only 20 images.
+                maxEntries: 10,
+                // Cache for a maximum of a day.
+                maxAgeSeconds: 24 * 60 * 60,
+            })
+        ],
+    })
+);
+
+workbox.routing.registerRoute(
+    new RegExp('\/$'),
+    new workbox.strategies.NetworkFirst({
+        cacheName: 'statics-cache'
+    })
+)
