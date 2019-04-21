@@ -15,6 +15,10 @@ module.exports = {
   },
   devServer: {
     contentBase: path.join(__dirname, 'build'),
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': '*',
+    }
   },
   plugins: [
     new WorkboxPlugin.InjectManifest({

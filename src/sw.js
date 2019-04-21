@@ -8,22 +8,27 @@ const staticAssets = [
 ]
 
 self.addEventListener('install', async event => {
-    const cache = await caches.open('app-statics')
-    cache.addAll(staticAssets)
+    /*const cache = await caches.open('app-statics')
+    cache.addAll(staticAssets)*/
 })
 
 self.addEventListener('fetch', event => {
     const req = event.request
     const url = new URL(req.url)
 
+    console.log("MOSTRANDO COSAS S:")
+    console.log(req)
+    console.log(url)
+
     const cacheFirst = new strategies.CacheFirst();
     const networkFirst = new workbox.strategies.NetworkFirst()
 
+    /*
     if (url.origin === location.origin) {
         event.respondWith(cacheFirst.makeRequest({ request: event.request }))
     } else {
         event.respondWith(networkFirst.makeRequest({ request: event.request }))
-    }
+    }*/
 
 })
 

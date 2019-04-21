@@ -12,7 +12,7 @@ class PostsController < ApplicationController
       total_posts << f.posts
     end
 
-    render json: {success: true, posts: total_posts}
+    render json: {success: true, posts: total_posts.flatten}
 
   end
 
