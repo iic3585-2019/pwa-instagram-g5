@@ -1,11 +1,13 @@
 .main-container{
     overflow-y: scroll;
     height: 80vh;
+    padding-top: 1vh !important;
 }
 
 .post-image{
-    max-height: 200px !important;
-    width: auto;
+    /*max-height: 20vw !important;*/
+    height: auto;
+    width: 100% !important;
     margin: 0px !important;
     padding: 0px !important;
 }

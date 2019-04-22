@@ -26,7 +26,7 @@ module.exports = {
     new WorkboxPlugin.InjectManifest({
       swSrc: './src/sw.js',
       // exclude: [/styles\.js$/] // Only for dev
-      exclude: [/app.js$/] // Only for dev
+      // exclude: [/app.js$/] // Only for dev
     }),
     new HtmlWebpackPlugin({
       template: './src/index.html'

@@ -69,7 +69,7 @@ const post_html_helper = (post) => {
     return `
     <div class="box">
         <div class="columns is-centered is-mobile">
-            <div class="column is-narrow">
+            <div class="column is-four-fifths">
                             
                 <img class="post-image" src="https://d17fnq9dkz9hgj.cloudfront.net/uploads/2018/02/Corgi-Cropped.jpeg" alt="Placeholder image">
 
