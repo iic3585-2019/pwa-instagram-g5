@@ -3,6 +3,27 @@
 
 <head>
   <title> PWA - Example </title>
+  <link rel="manifest" href="/manifest.json">
+  <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
+
+  <!-- Firebase App is always required and must be first -->
+  <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-app.js"></script>
+
+  <!-- Add additional services that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-messaging.js"></script>
+
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyC6y5E8L2XXjcT9C9ypMb_yNn1XnedQN_c",
+      authDomain: "pwa-instagram.firebaseapp.com",
+      databaseURL: "https://pwa-instagram.firebaseio.com",
+      projectId: "pwa-instagram",
+      storageBucket: "pwa-instagram.appspot.com",
+      messagingSenderId: "723544637426"
+    };
+    firebase.initializeApp(config);
+  </script>
 </head>
 
 <body>
@@ -64,7 +85,16 @@
 
     </div>
   </section>
-
+  <script>
+    firebase.messaging().requestPermission()
+    .then(function(token) {
+    console.log('Recibido permiso.'+token);
+    // En el parámetro "token" tienes el código para poder enviar las notificaciones
+    })
+    .catch(function(err) {
+    console.log('No se ha obtenido permiso', err);
+    });
+  </script>
 </body>
 
 </html>

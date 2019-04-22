@@ -32,6 +32,8 @@ module.exports = {
     }),
     new CopyPlugin([
       // path.resolve(__dirname, 'src', 'example.txt'),
+      path.resolve(__dirname, 'src', 'manifest.json'),
+      path.resolve(__dirname, 'src', 'images'),
       { from: path.resolve(__dirname, 'src', 'styles', 'style.css'), to: path.resolve(__dirname, 'build') }
     ])
   ],
