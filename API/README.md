@@ -1,24 +1,26 @@
-# README
+# PWA - "Instagram" Back-end
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Requisitos
+- Ruby (Idealmente mediante rvm)
+- Node
 
-Things you may want to cover:
+## Instrucciones para levantar la api
 
-* Ruby version
+Antes de partir recuerde levantar la base de datos
 
-* System dependencies
+1. Instale las dependencias mediante el comando
+```
+bundle install
+```
+2. Cree la base de datos, las tablas y pueblelas ejecutando los siguientes comandos
+```
+rake db:create
+rake db:migrate
+rake db:seed
+```
+3. Finalmente levante el servidor con el siguiente comando
+```
+rails s -b 0.0.0.0
+```
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+**Recomendación:** Entre al directorio mediante una consola para que así rvm tome la versión de ruby y el gemset.
