@@ -6,8 +6,11 @@ class PostsController < ApplicationController
     total_posts = []
 
     friends.each do |f|
-      total_posts << f.posts
+      total_posts << f.posts.order("posts.created_at DESC")
     end
+
+    # TODO: Ordenar los total post por fecha, solo en el caso de 1
+    # amigo tiene sentido actualmente :(
 
     render json: {success: true, posts: total_posts.flatten}
   end

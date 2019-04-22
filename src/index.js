@@ -142,10 +142,6 @@ $("#user_select").ready(() => {
     $(`#user_select option[value=${current_user}]`).attr('selected', 'selected')
 })
 
-
-
-console.log("Esto es un print de la cosa!")
-
 if (module.hot) {
     module.hot.accept()
 }
