@@ -6,12 +6,13 @@ module.exports = {
   mode: 'development',
   entry: {
     app: path.resolve(__dirname, 'src', 'index.js'),
+    styles: path.resolve(__dirname, 'src', 'styles', 'style.css')
   },
   devtool: 'inline-source-map',
   output: {
     path: path.resolve(__dirname, 'build'),
     // publicPath: '/assets/',
-    filename: 'bundle.js'
+    filename: '[name].js'
   },
   devServer: {
     contentBase: path.join(__dirname, 'build'),
@@ -23,6 +24,7 @@ module.exports = {
   plugins: [
     new WorkboxPlugin.InjectManifest({
       swSrc: './src/sw.js',
+      exclude: [/styles\.js$/] // Only for dev
     }),
     new HtmlWebpackPlugin({
       template: './src/index.html'

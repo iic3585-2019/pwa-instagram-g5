@@ -64,6 +64,7 @@ workbox.routing.registerRoute(
     new workbox.strategies.NetworkFirst()
 );*/
 
+// Cache para peticiones desde la API de rails
 workbox.routing.registerRoute(
     // Cache image files.
     new RegExp("http:\/\/192\.168\.0\.30:3000.*"),
@@ -82,9 +83,26 @@ workbox.routing.registerRoute(
     })
 );
 
+// Cache para el html que se pide, en este caso sólo el home
 workbox.routing.registerRoute(
     new RegExp('\/$'),
     new workbox.strategies.NetworkFirst({
         cacheName: 'statics-cache'
+    })
+)
+
+// Cache para el js
+workbox.routing.registerRoute(
+    new RegExp('.*\.js$'),
+    new workbox.strategies.NetworkFirst({
+        cacheName: 'js-cache',
+        plugins: [
+            new workbox.expiration.Plugin({
+                // Cache only 20 images.
+                maxEntries: 10,
+                // Cache for a maximum of a day.
+                maxAgeSeconds: 24 * 60 * 60,
+            })
+        ],
     })
 )

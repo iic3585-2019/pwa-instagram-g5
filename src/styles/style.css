@@ -1,0 +1,4 @@
+#posts_container>.card-content{
+    overflow-y: scroll;
+    height: 600px;
+}

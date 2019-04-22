@@ -1,5 +1,4 @@
 import $ from "jquery"
-import './style.css'
 import '../node_modules/bulma/css/bulma.min.css'
 
 window.addEventListener('load', e => {
