@@ -34,18 +34,26 @@ const get_friends_posts = async (user_id) => {
     return json_res
 }
 
-$(document).ready(async () => {
-    let posts = await get_friends_posts(localStorage.getItem("current_user"))
+$(document).ready(() => {
+    load_friends_posts()
+})
 
-    console.log("Los post que llegaron son:")
-    console.log(posts)
+const load_friends_posts = async () => {
+    const current_user = get_current_user()
+    if (current_user === null) {
+        return null
+    }
+
+    let posts = await get_friends_posts(current_user)
+
     $("#posts_container").ready((e) => {
+        $("#posts_container").empty()
+
         posts["posts"].forEach(post => {
             $("#posts_container").append(post_html_helper(post))
         })
     })
-    // debugger
-})
+}
 
 const post_html_helper = (post) => {
     return `
@@ -68,6 +76,8 @@ $("#user_button").on('click', (e) => {
     e.preventDefault()
     const selected_value = $("#user_select option:selected").val()
     localStorage.setItem('current_user', selected_value)
+
+    load_friends_posts()
 })
 
 $("#user_select").ready(() => {

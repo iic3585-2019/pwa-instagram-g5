@@ -1,6 +1,6 @@
 .main-container{
     overflow-y: scroll;
-    height: 600px;
+    height: 80vh;
 }
 
 .post-image{
