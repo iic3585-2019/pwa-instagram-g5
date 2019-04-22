@@ -14,9 +14,13 @@ window.addEventListener('load', e => {
 })
 
 const USERS = {
-    1: { name: "Francisco" },
-    2: { name: "Gabriel" }
+    1: { name: "Francisco",
+        token: "" },
+    2: { name: "Gabriel", 
+        token: "fKcK-zlFkPs:APA91bGLRiVTd5tUg16SozLsuUtAIPavCqZyEV1y0NNNfuAmIiwCYl9vTPxIoEccTkKXrdRouPVUCJgFiFGhAEt3MN-jVrILmw3HTTqs0BZXsA9NJyWxEAVwbSk4xTGBAuCEHSctZen7"}
 }
+
+let gCurrentToken;
 
 const get_current_user = () => {
     return localStorage.getItem("current_user")
@@ -73,6 +77,51 @@ const post_html_helper = (post) => {
     `
 }
 
+const firebase_function = () => {
+    var config = {
+        apiKey: "AIzaSyC6y5E8L2XXjcT9C9ypMb_yNn1XnedQN_c",
+        authDomain: "pwa-instagram.firebaseapp.com",
+        databaseURL: "https://pwa-instagram.firebaseio.com",
+        projectId: "pwa-instagram",
+        storageBucket: "pwa-instagram.appspot.com",
+        messagingSenderId: "723544637426"
+      };
+    firebase.initializeApp(config);
+
+     // Retrieve Firebase Messaging object.
+    const messaging = firebase.messaging();
+    // Add the public key generated from the console here.
+    messaging.usePublicVapidKey("BCX1Tpm1SJtm865859nUIavWSG0zTz2Fe-HEE5kxjJU295dOj50Jahos1l_JhnD5g0d3sY-j1boZfCIJLMZZ8So");
+    messaging.requestPermission().then(function() {
+        console.log('Notification permission granted.');
+        // Get Instance ID token. Initially this makes a network call, once retrieved
+        // subsequent calls to getToken will return from cache.
+        messaging.getToken().then(function(currentToken) {
+        if (currentToken) {
+            console.log("hay token!");
+            console.log(currentToken)
+            gCurrentToken = currentToken;
+        } else {
+            // Show permission request.
+            console.log('No Instance ID token available. Request permission to generate one.');
+            // Show permission UI.
+            // updateUIForPushPermissionRequired();
+            // setTokenSentToServer(false);
+        }
+        }).catch(function(err) {
+        console.log('An error occurred while retrieving token. ', err);
+        // showToken('Error retrieving Instance ID token. ', err);
+        // setTokenSentToServer(false);
+        });
+    }).catch(function(err) {
+        console.log('Unable to get permission to notify.', err);
+    });
+    messaging.onMessage(function(payload){
+        console.log("Recibiste mensaje");
+        console.log(payload)
+    });
+}
+
 // ========================================================================
 // Jquery stuff
 // ========================================================================
@@ -108,6 +157,12 @@ $("#create_post_button").on('click', (e) => {
         return null
     }
 
+    let token_user = 1;
+    if(current_user == 1){
+        token_user = 2;
+        console.log("Se asigno al gabo");
+    }
+
     axios.post(`${API_URL}/posts/create_post`,
         {
             user_id: current_user,
@@ -117,6 +172,30 @@ $("#create_post_button").on('click', (e) => {
         .then(function (response) {
             console.log(response.data)
             close_modal()
+            
+            axios.post(`https://fcm.googleapis.com/fcm/send`,
+            { "notification": {
+                "title": "instagram-pwa",
+                "body": `${USERS[current_user].name} ha subido un nuevo post`,
+                "click_action" : "http://localhost:8080/"
+                },
+               
+               "to" : `${USERS[2].token}` 
+            },
+            {
+                headers:{
+                    "Content-Type": "application/json",
+                    "Authorization": "key=AAAAqHae__I:APA91bF2FCpH4lknOJ1QgTaQGnyzBNjozZ_opw0hJtjQ9zaBdjFx8LwklliaDaQ_BHM9zgj4F1oWbFVUVxorkxOhwCvs018dR31XRZXwWTQGDNaUl7Fiftcus-0_5lFT9FXQbWLGdrql"
+                }
+            })
+            .then(function (response) {
+                console.log(response.data)
+                close_modal()
+                
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
         })
         .catch(function (error) {
             console.log(error);
@@ -142,6 +221,7 @@ $("#user_select").ready(() => {
     $(`#user_select option[value=${current_user}]`).attr('selected', 'selected')
 })
 
+firebase_function()
 if (module.hot) {
     module.hot.accept()
 }

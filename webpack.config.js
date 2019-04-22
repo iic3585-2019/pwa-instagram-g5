@@ -26,6 +26,7 @@ module.exports = {
     new WorkboxPlugin.InjectManifest({
       swSrc: './src/sw.js',
       // exclude: [/styles\.js$/] // Only for dev
+      exclude: [/app.js$/] // Only for dev
     }),
     new HtmlWebpackPlugin({
       template: './src/index.html'
@@ -34,6 +35,7 @@ module.exports = {
       // path.resolve(__dirname, 'src', 'example.txt'),
       path.resolve(__dirname, 'src', 'manifest.json'),
       path.resolve(__dirname, 'src', 'images'),
+      path.resolve(__dirname, 'src', 'firebase-messaging-sw.js'),
       { from: path.resolve(__dirname, 'src', 'styles', 'style.css'), to: path.resolve(__dirname, 'build') }
     ])
   ],
