@@ -67,7 +67,8 @@ workbox.routing.registerRoute(
 // Cache para peticiones desde la API de rails
 workbox.routing.registerRoute(
     // Cache image files.
-    new RegExp("http:\/\/192\.168\.0\.30:3000.*"),
+    // new RegExp("http:\/\/192\.168\.0\.30:3000.*"),
+    new RegExp("http:\/\/0\.0\.0\.0:3000.*"),
     // Use the cache if it's available.
     new workbox.strategies.NetworkFirst({
         // Use a custom cache name.
