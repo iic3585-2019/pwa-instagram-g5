@@ -1,12 +1,13 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const WorkboxPlugin = require('workbox-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   mode: 'development',
   entry: {
     app: path.resolve(__dirname, 'src', 'index.js'),
-    styles: path.resolve(__dirname, 'src', 'styles', 'style.css')
+    // styles: path.resolve(__dirname, 'src', 'styles', 'style.css')
   },
   devtool: 'inline-source-map',
   output: {
@@ -24,11 +25,15 @@ module.exports = {
   plugins: [
     new WorkboxPlugin.InjectManifest({
       swSrc: './src/sw.js',
-      exclude: [/styles\.js$/] // Only for dev
+      // exclude: [/styles\.js$/] // Only for dev
     }),
     new HtmlWebpackPlugin({
       template: './src/index.html'
-    })
+    }),
+    new CopyPlugin([
+      // path.resolve(__dirname, 'src', 'example.txt'),
+      { from: path.resolve(__dirname, 'src', 'styles', 'style.css'), to: path.resolve(__dirname, 'build') }
+    ])
   ],
   module: {
     rules: [

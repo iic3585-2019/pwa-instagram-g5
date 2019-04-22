@@ -91,11 +91,11 @@ workbox.routing.registerRoute(
     })
 )
 
-// Cache para el js, en particular solo el de los estilos
+// Cache para guarar el estilo
 workbox.routing.registerRoute(
-    new RegExp('.*styles\.js$'),
+    new RegExp('.*style\.css$'),
     new workbox.strategies.NetworkFirst({
-        cacheName: 'js-cache',
+        cacheName: 'css-cache',
         plugins: [
             new workbox.expiration.Plugin({
                 // Cache only 20 images.
