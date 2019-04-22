@@ -5,4 +5,6 @@ Rails.application.routes.draw do
   get 'users/get_friends_list', to: 'users#get_friends_list'
 
   get 'posts/get_friends_posts', to: 'posts#get_friends_posts'
+  post 'posts/create_post', to: 'posts#create_post'
+
 end

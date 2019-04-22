@@ -3,6 +3,7 @@
 
 <head>
   <title> PWA - Example </title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -38,6 +39,10 @@
         <a id="user_button" class="button is-primary">Guardar</a>
       </div>
 
+      <div class="column">
+        <a id="new_post_button" class="button is-primary">Nuevo post</a>
+      </div>
+
     </div>
 
     
@@ -64,6 +69,44 @@
 
     </div>
   </section>
+
+  <div id="add_post_modal" class="modal">
+    <div class="modal-background"></div>
+
+    <div class="modal-content" style="width: auto !important;">
+    
+      <div class="modal-container has-background-white is-clipped">
+
+        <div class="columns is-centered">
+        
+          <div class="column" style="padding: 5vw">
+            <div class="field">
+              <label class="label">Contenido de la publicación</label>
+              <div class="control">
+                <textarea class="textarea" placeholder="Escribe el contenido aquí..."></textarea>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Id de la persona a taggear</label>
+              <div class="control">
+                <input class="input" type="text" placeholder="">
+              </div>
+            </div>
+
+          <button id="create_post_button" class="button is-primary"> Crear publicación </button>
+
+          </div>
+        </div>
+      
+      </div>
+
+
+
+    </div>
+
+    <button id="close_post_modal_button" class="modal-close is-large" aria-label="close"></button>
+  </div>
 
 </body>
 

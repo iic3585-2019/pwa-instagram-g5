@@ -1,5 +1,6 @@
 import $ from "jquery"
 import '../node_modules/bulma/css/bulma.min.css'
+import axios from 'axios'
 
 window.addEventListener('load', e => {
     if ('serviceWorker' in navigator) {
@@ -58,7 +59,7 @@ const load_friends_posts = async () => {
 const post_html_helper = (post) => {
     return `
     <div class="box">
-        <div class="columns is-centered">
+        <div class="columns is-centered is-mobile">
             <div class="column is-narrow">
                             
                 <img class="post-image" src="https://d17fnq9dkz9hgj.cloudfront.net/uploads/2018/02/Corgi-Cropped.jpeg" alt="Placeholder image">
@@ -72,6 +73,9 @@ const post_html_helper = (post) => {
     `
 }
 
+// ========================================================================
+// Jquery stuff
+// ========================================================================
 $("#user_button").on('click', (e) => {
     e.preventDefault()
     const selected_value = $("#user_select option:selected").val()
@@ -79,6 +83,53 @@ $("#user_button").on('click', (e) => {
 
     load_friends_posts()
 })
+
+$("#new_post_button").on('click', (e) => {
+    e.preventDefault()
+
+    $("#add_post_modal").ready(() => {
+        $("#add_post_modal").addClass("is-active")
+    })
+})
+
+$("#close_post_modal_button").on('click', (e) => {
+    e.preventDefault()
+    close_modal()
+})
+
+$("#create_post_button").on('click', (e) => {
+    e.preventDefault()
+
+    const content = $("#add_post_modal textarea").val()
+    const tagged_friend = $("#add_post_modal input").val()
+
+    const current_user = get_current_user()
+    if (current_user === null) {
+        return null
+    }
+
+    axios.post(`${API_URL}/posts/create_post`,
+        {
+            user_id: current_user,
+            content: content,
+            tagged_friend: tagged_friend
+        })
+        .then(function (response) {
+            console.log(response.data)
+            close_modal()
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+
+    //
+})
+
+const close_modal = () => {
+    $("#add_post_modal").ready(() => {
+        $("#add_post_modal").removeClass("is-active")
+    })
+}
 
 $("#user_select").ready(() => {
     const current_user = get_current_user()
