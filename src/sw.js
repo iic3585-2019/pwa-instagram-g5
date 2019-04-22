@@ -16,9 +16,9 @@ self.addEventListener('fetch', event => {
     const req = event.request
     const url = new URL(req.url)
 
-    console.log("[SW] Mostrando cosas del fetch")
+    /*console.log("[SW] Mostrando cosas del fetch")
     console.log(req)
-    console.log(url)
+    console.log(url)*/
 
     // const cacheFirst = new strategies.CacheFirst();
     // const networkFirst = new workbox.strategies.NetworkFirst()
@@ -93,7 +93,7 @@ workbox.routing.registerRoute(
 
 // Cache para el js
 workbox.routing.registerRoute(
-    new RegExp('.*\.js$'),
+    new RegExp('.*styles\.js$'),
     new workbox.strategies.NetworkFirst({
         cacheName: 'js-cache',
         plugins: [

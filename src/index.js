@@ -12,6 +12,11 @@ window.addEventListener('load', e => {
     }
 })
 
+const USERS = {
+    1: { name: "Francisco" },
+    2: { name: "Gabriel" }
+}
+
 const get_current_user = () => {
     return localStorage.getItem("current_user")
 }
@@ -34,9 +39,9 @@ $(document).ready(async () => {
 
     console.log("Los post que llegaron son:")
     console.log(posts)
-    $("#posts_container .card-content").ready((e) => {
+    $("#posts_container").ready((e) => {
         posts["posts"].forEach(post => {
-            $("#posts_container .card-content").append(post_html_helper(post))
+            $("#posts_container").append(post_html_helper(post))
         })
     })
     // debugger
@@ -45,9 +50,16 @@ $(document).ready(async () => {
 const post_html_helper = (post) => {
     return `
     <div class="box">
+        <div class="columns is-centered">
+            <div class="column is-narrow">
+                            
+                <img class="post-image" src="https://d17fnq9dkz9hgj.cloudfront.net/uploads/2018/02/Corgi-Cropped.jpeg" alt="Placeholder image">
 
+            </div>
+        </div>
+    
+        ${USERS[post.user_id]["name"]}:<br>
         ${post.content}
-
     </div>
     `
 }

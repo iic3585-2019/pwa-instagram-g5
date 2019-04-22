@@ -1,4 +1,11 @@
-#posts_container>.card-content{
+.main-container{
     overflow-y: scroll;
     height: 600px;
+}
+
+.post-image{
+    max-height: 200px !important;
+    width: auto;
+    margin: 0px !important;
+    padding: 0px !important;
 }
